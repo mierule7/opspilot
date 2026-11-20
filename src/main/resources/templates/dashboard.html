@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>OpsPilot - Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;}
+        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        button { padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>OpsPilot Dashboard</h2>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <div class="container">
+        <h3>Welcome to the Platform!</h3>
+        <p id="status">Loading secure data...</p>
+    </div>
+
+    <script>
+        // Check if token exists on page load
+        const token = sessionStorage.getItem('jwtToken');
+        if (!token) {
+            window.location.href = '/login';
+        }
+
+        // Test a secure API call
+        async function fetchSecureData() {
+            const response = await fetch('/api/secure-test', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            
+            if (response.ok) {
+                document.getElementById('status').innerText = "Successfully authenticated with JWT! Secure data loaded.";
+            } else {
+                document.getElementById('status').innerText = "Failed to authenticate.";
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('jwtToken');
+            window.location.href = '/login';
+        }
+
+        // Call it immediately when page loads
+        fetchSecureData();
+    </script>
+</body>
+</html>

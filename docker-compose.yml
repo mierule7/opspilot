@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: opspilot-db
+    environment:
+      POSTGRES_USER: opspilot_user
+      POSTGRES_PASSWORD: opspilot_password
+      POSTGRES_DB: opspilot_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - opspilot_pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  opspilot_pgdata:

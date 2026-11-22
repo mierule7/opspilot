@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: mierule7/opspilot-app
-  pullPolicy: Alwasys
+  pullPolicy: IfNotPresent
   tag: "latest"
 
 service:

@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: mierule7/opspilot-app
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "v1"
 
 service:
   type: NodePort
